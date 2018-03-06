@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="splunk" class="com.splunk.logging.HttpEventCollectorLogbackAppender">
+        <url>https://172.16.73.96:8088</url>
+        <token>88feeeab-1eac-4c1d-a1ab-4a4d48b53c9b</token>
+        <source>docker</source>
+        <sourcetype>test</sourcetype>
+        <disableCertificateValidation>true</disableCertificateValidation>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%msg</pattern>
+        </layout>
+        <batch_size_count>10</batch_size_count>
+        <batch_interval>30000</batch_interval>
+    </appender>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="hello.Application" level="debug">
+        <appender-ref ref="splunk" />
+        <appender-ref ref="stdout" />
+    </logger>
+
+</configuration>
